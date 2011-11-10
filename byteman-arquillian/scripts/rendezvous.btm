@@ -1,0 +1,52 @@
+#########################################################################
+# rules to identify progress of the periodic recovery listener thread
+#
+
+# if a test has set up a rendezvous under key "PR listener run" then
+# flag the listener so that it enters the rendezvous when it starts runnning
+
+RULE set up listener for rendezvous
+CLASS com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery
+METHOD <init>
+AT CALL  Listener.start
+BIND pr : PeriodicRecovery = $0
+IF isRendezvous("PR listener run", 2)
+DO debug("flagging PR listener"),
+   flag(pr.getListener())
+ENDRULE
+
+# if the listener has been flagged then make it enter
+# the PR run rendezvous just before calling accept
+
+RULE listener rendezvous at run
+CLASS com.arjuna.ats.internal.arjuna.recovery.Listener
+METHOD run()
+AT ENTRY
+BIND listener : Listener = $0
+IF flagged(listener) && isRendezvous("PR listener run", 2)
+DO debug("listener rendezvous at PR listener run"),
+   rendezvous("PR listener run")
+ENDRULE
+
+
+# Start rendezvous when the test starts
+
+RULE test create rendezvous
+CLASS org.my.rendezvous.WaitForRecoveryToCompleteTest
+METHOD testWaitForRecoveryToComplete()
+AT ENTRY
+BIND NOTHING
+IF TRUE
+DO debug("create rendezvous for RecoveryComplete"),
+   createRendezvous("RecoveryComplete", 2),
+ENDRULE
+
+# Release test
+RULE trigger rendezvous to release test
+CLASS com.arjuna.wst11.messaging.engines.ParticipantEngine
+METHOD rollback
+AFTER INVOKE forget
+BIND NOTHING
+IF TRUE
+DO rendezvous("RecoveryComplete")
+ENDRULE
