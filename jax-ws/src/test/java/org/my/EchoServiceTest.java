@@ -1,30 +1,64 @@
 package org.my;
 
-import org.junit.After;
+import junit.framework.Assert;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.my.client.EchoClient;
+import org.my.client.IEchoService;
+import org.my.client.MyClientHandler;
 import org.my.jaxws.EchoService;
 import org.my.jaxws.EchoServiceService;
+import org.my.server.EchoServiceImpl;
+import org.my.server.MyServerHandler;
+import javax.inject.Inject;
 
-import javax.xml.namespace.QName;
-import javax.xml.ws.BindingProvider;
-import javax.xml.ws.Service;
-import javax.xml.ws.handler.Handler;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-
+@RunWith(Arquillian.class)
 public class EchoServiceTest
 {
+    @Inject
+    public EchoClient echoClient;
+
+    @Deployment
+    public static WebArchive createTestArchive()
+    {
+        return ShrinkWrap.create(WebArchive.class, "echo_service.war")
+                .addClasses(IEchoService.class)
+                .addClasses(EchoService.class)
+                .addClasses(EchoServiceService.class)
+                .addClasses(EchoClient.class)
+                .addClasses(EchoServiceImpl.class)
+                .addClasses(MyClientHandler.class)
+                .addClasses(MyServerHandler.class)
+                .addAsResource("client-handlers.xml")
+                .addAsResource("server-handlers.xml")
+                .addAsWebInfResource("web.xml", "web.xml")
+                .addAsWebInfResource(
+                        EmptyAsset.INSTANCE,
+                        ArchivePaths.create("beans.xml"));
+    }
+
     @Test
+    public void echoTest() throws Exception
+    {
+        Assert.assertEquals("Hello Paul", echoClient.sayHello("Paul"));
+    }
+
+/*    @Test
     public void echoTest() throws Exception
     {
         EchoServiceService echoService = new EchoServiceService(new URL("http://localhost:8080/echo_service/EchoService?wsdl"),
                 new QName("http://my.org/simple", "EchoServiceService"));
         EchoService echo = echoService.getEchoServicePort();
         echo.sayHello("Paul");
-    }
+    }*/
 
-    @Test
+ /*   @Test
     public void clientHandlerTest() throws Exception
     {
         URL wsdlLocation = new URL("http://localhost:8080/echo_service/EchoService?wsdl");
@@ -62,5 +96,5 @@ public class EchoServiceTest
     public void after()
     {
 
-    }
+    }*/
 }

@@ -1,5 +1,6 @@
-package org.my;
+package org.my.server;
 
+import org.my.client.IEchoService;
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;

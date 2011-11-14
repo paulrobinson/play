@@ -7,7 +7,7 @@
     <handler-chain>
         <handler>
             <handler-name>MyServerHandler</handler-name>
-            <handler-class>org.my.MyServerHandler</handler-class>
+            <handler-class>org.my.server.MyServerHandler</handler-class>
         </handler>
     </handler-chain>
 </handler-chains>

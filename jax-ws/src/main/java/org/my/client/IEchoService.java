@@ -1,4 +1,4 @@
-package org.my;
+package org.my.client;
 
 import javax.jws.HandlerChain;
 import javax.jws.WebService;
