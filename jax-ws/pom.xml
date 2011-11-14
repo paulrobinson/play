@@ -18,22 +18,11 @@
     <artifactId>echo_service</artifactId>
     <version>1.0</version>
     <name>Simple JAX-WS example</name>
-    <description>Simpe JAX-WS example</description>
+    <description>Simple JAX-WS example</description>
     <packaging>war</packaging>
     <properties>
-        <arquillian.version>1.0.0.Alpha5</arquillian.version>
+        <arquillian.version>1.0.0.CR5</arquillian.version>
     </properties>
-    <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <testSourceDirectory>src/test/java</testSourceDirectory>
-        <testResources>
-            <testResource>
-                <directory>
-                    src/test/resources
-                </directory>
-            </testResource>
-        </testResources>
-    </build>
 
     <dependencyManagement>
         <dependencies>
@@ -58,53 +47,12 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <!-- Import the JPA API, we use provided scope as the API is included in
-              JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.transaction</groupId>
-            <artifactId>jboss-transaction-api_1.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Import the JSF API, we use provided scope as the API is included in
-              JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.faces</groupId>
-            <artifactId>jboss-jsf-api_2.0_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Import the JPA API, we use provided scope as the API is included in
-              JBoss AS 7 -->
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.0-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <!-- Import the EJB API, we use provided scope as the API is included in
-              JBoss AS 7 -->
-        <dependency>
-            <groupId>org.jboss.spec.javax.ejb</groupId>
-            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
-            <scope>provided</scope>
-        </dependency>
         <!-- Import the CDI API, we use provided scope as the API is included in
               JBoss AS 7 -->
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <!-- For the txoj -->
-        <dependency>
-            <groupId>org.jboss.jbossts</groupId>
-            <artifactId>jbossjta</artifactId>
-            <version>4.15.1.Final</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.logging</groupId>
-                    <artifactId>jboss-logging-spi</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <!-- Import the qualifiers annotations -->
         <dependency>
@@ -120,24 +68,24 @@
             <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- Arquillian allows you to test the example inside a container -->
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <version>1.0.0.CR1</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>javax.enterprise</groupId>
             <artifactId>cdi-api</artifactId>
             <version>1.0-SP1</version>
         </dependency>
+        <!-- Arquillian allows you to test the example inside a container -->
         <dependency>
-            <groupId>org.jboss.arquillian</groupId>
-            <artifactId>arquillian-junit</artifactId>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
             <version>${arquillian.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-core</artifactId>
+            <version>${arquillian.version}</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>
