@@ -78,19 +78,6 @@
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <!-- For the txoj -->
-        <dependency>
-            <groupId>org.jboss.jbossts</groupId>
-            <artifactId>jbossjta</artifactId>
-            <version>4.15.1.Final</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.jboss.logging</groupId>
-                    <artifactId>jboss-logging-spi</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
         <!-- Import the qualifiers annotations -->
         <dependency>
             <groupId>javax.inject</groupId>
@@ -126,22 +113,6 @@
     </dependencies>
 
     <profiles>
-        <profile>
-            <id>jbossas-remote-6</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.jboss.arquillian.container</groupId>
-                    <artifactId>arquillian-jbossas-remote-6</artifactId>
-                    <version>${arquillian.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.jbossas</groupId>
-                    <artifactId>jboss-as-client</artifactId>
-                    <version>6.0.0.Final</version>
-                    <type>pom</type>
-                </dependency>
-            </dependencies>
-        </profile>
         <profile>
             <!-- An optional Arquillian testing profile that executes tests in a remote
          JBoss AS instance -->
