@@ -21,7 +21,8 @@
     <description>Simple JAX-WS example</description>
     <packaging>war</packaging>
     <properties>
-        <arquillian.version>1.0.0.CR5</arquillian.version>
+        <arquillian.version>1.0.0.Final</arquillian.version>
+        <jboss.version>7.1.3.Final-SNAPSHOT</jboss.version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,21 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <!-- Java EE 6 doesn't require web.xml, Maven needs to catch up! -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <!-- Import the CDI API, we use provided scope as the API is included in
               JBoss AS 7 -->
@@ -68,11 +84,6 @@
             <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.0-SP1</version>
-        </dependency>
         <!-- Arquillian allows you to test the example inside a container -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
@@ -86,6 +97,18 @@
             <version>${arquillian.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.jboss.ws</groupId>
+            <artifactId>jbossws-spi</artifactId>
+            <version>2.0.2.GA</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>2.4.6</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -93,12 +116,12 @@
             <!-- An optional Arquillian testing profile that executes tests in a remote
          JBoss AS instance -->
             <!-- Run with: mvn clean test -Pjbossas-remote-7 -->
-            <id>jbossas-remote-7</id>
+            <id>jbossas-remote</id>
             <dependencies>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-arquillian-container-remote</artifactId>
-                    <version>7.0.0.CR1</version>
+                    <version>${jboss.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>

@@ -29,7 +29,7 @@
     <handler-chain>
         <handler>
             <handler-name>MyClientHandler</handler-name>
-            <handler-class>org.my.client.MyClientHandler</handler-class>
+            <handler-class>org.my.simple.client.MyClientHandler</handler-class>
         </handler>
     </handler-chain>
 

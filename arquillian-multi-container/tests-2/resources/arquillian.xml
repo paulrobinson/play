@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<arquillian xmlns="http://jboss.org/schema/arquillian" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://jboss.org/schema/arquillian
+        http://jboss.org/schema/arquillian/arquillian_1_0.xsd">
+
+
+<!--    <group qualifier="group-1" default="true">
+        <container qualifier="jboss-as-2">
+            <configuration>
+                <property name="serverConfig">standalone-xts.xml</property>
+            </configuration>
+        </container>
+    </group>
+
+    <group qualifier="group-2" >
+        <container qualifier="jboss-as-1" >
+            <configuration>
+                <property name="serverConfig">standalone-full.xml</property>
+            </configuration>
+        </container>
+    </group>-->
+
+    <container qualifier="jboss-as-1" >
+        <configuration>
+            <property name="serverConfig">standalone-full.xml</property>
+        </configuration>
+    </container>
+    <container qualifier="jboss-as-2" >
+            <configuration>
+                <property name="serverConfig">standalone-xts.xml</property>
+            </configuration>
+    </container>
+</arquillian>
+

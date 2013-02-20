@@ -1,0 +1,8 @@
+<jboss-deployment-structure>
+    <module name="deployment.org.my.m1"/>
+    <deployment>
+        <!--dependencies>
+            <module name="org.jboss.jts"/>
+        </dependencies-->   
+    </deployment>
+</jboss-deployment-structure>

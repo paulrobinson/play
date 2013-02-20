@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	template="/resources/scaffold/page.xhtml">
+
+	<f:metadata>
+		<f:viewParam name="page" value="#{customerBean.page}"/>
+		<f:event type="preRenderView" listener="#{customerBean.paginate}"/>
+	</f:metadata>
+
+	<ui:param name="pageTitle" value="Search Customer entities"/>
+
+	<ui:define name="header">
+		Customer
+	</ui:define>
+
+	<ui:define name="subheader">
+		Search Customer entities
+	</ui:define>
+
+	<ui:define name="footer"/>
+
+	<ui:define name="main">
+		<h:form id="search">
+			<h:panelGroup styleClass="search">
+
+				<h:panelGrid columnClasses="label,component,required" columns="3">
+					<h:outputLabel for="customerBeanSearchFirstName" value="First Name:"/>
+					<h:panelGroup>
+						<h:inputText id="customerBeanSearchFirstName" value="#{customerBean.search.firstName}"/>
+						<h:message for="customerBeanSearchFirstName" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+					<h:outputLabel for="customerBeanSearchLastName" value="Last Name:"/>
+					<h:panelGroup>
+						<h:inputText id="customerBeanSearchLastName" value="#{customerBean.search.lastName}"/>
+						<h:message for="customerBeanSearchLastName" styleClass="error"/>
+					</h:panelGroup>
+					<h:outputText/>
+				</h:panelGrid>
+				<h:panelGroup styleClass="buttons">
+					<h:commandLink value="Search" action="#{customerBean.search}"/>
+					<h:commandLink value="Create New" action="#{customerBean.create}"/>
+				</h:panelGroup>
+			</h:panelGroup>
+			
+			<h:dataTable id="customerBeanPageItems" styleClass="data-table" value="#{customerBean.pageItems}" var="_item">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="First Name"/>
+					</f:facet>
+					<h:link outcome="/scaffold/customer/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemFirstName" value="#{_item.firstName}"/>
+					</h:link>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Last Name"/>
+					</f:facet>
+					<h:link outcome="/scaffold/customer/view">
+						<f:param name="id" value="#{_item.id}"/>
+						<h:outputText id="itemLastName" value="#{_item.lastName}"/>
+					</h:link>
+				</h:column>
+			</h:dataTable>
+			<ui:include src="/resources/scaffold/paginator.xhtml">
+				<ui:param name="paginatorBean" value="#{customerBean}"/>
+			</ui:include>
+		</h:form>
+			
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE jboss-client PUBLIC "-//JBoss//DTD Application Client 5.0//EN" "http://www.jboss.org/j2ee/dtd/jboss-client_5_0.dtd">
+
+<jboss-client>
+  <jndi-name>jbossws-client</jndi-name>
+    <!--
+    @WebServiceRef(name = "EchoServiceService")
+    -->
+    <service-ref>
+      <service-ref-name>EchoServiceService</service-ref-name>
+      <service-qname>{http://my.org/simple}EchoServiceService</service-qname>
+      <wsdl-override>META-INF/echo.wsdl</wsdl-override>
+    </service-ref>
+
+
+</jboss-client>

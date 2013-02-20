@@ -26,12 +26,22 @@
 
     <servlet>
         <servlet-name>EchoService</servlet-name>
-        <servlet-class>org.my.server.EchoServiceImpl</servlet-class>
+        <servlet-class>org.my.simple.server.EchoServiceImpl</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>HandlerService</servlet-name>
+        <servlet-class>org.my.handler.server.HandlerServiceImpl</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>EchoService</servlet-name>
         <url-pattern>/EchoService</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>HandlerService</servlet-name>
+        <url-pattern>/HandlerService</url-pattern>
     </servlet-mapping>
 
 </web-app>

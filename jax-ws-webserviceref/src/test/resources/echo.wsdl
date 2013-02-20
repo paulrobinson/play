@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions name="EchoServiceService" targetNamespace="http://my.org/simple" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://my.org/simple" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:message name="sayHelloResponse">
+    <wsdl:part name="return" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayHello">
+    <wsdl:part name="arg0" type="xsd:string">
+    </wsdl:part>
+  </wsdl:message>
+
+  <wsdl:portType name="EchoServiceImpl">
+    <wsdl:operation name="sayHello">
+      <wsdl:input message="tns:sayHello" name="sayHello">
+    </wsdl:input>
+      <wsdl:output message="tns:sayHelloResponse" name="sayHelloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EchoServiceServiceSoapBinding" type="tns:EchoServiceImpl">
+
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sayHello">
+      <soap:operation soapAction="" style="rpc"/>
+      <wsdl:input name="sayHello">
+        <soap:body namespace="http://my.org/simple" use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sayHelloResponse">
+        <soap:body namespace="http://my.org/simple" use="literal"/>
+      </wsdl:output>
+
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EchoServiceService">
+    <wsdl:port binding="tns:EchoServiceServiceSoapBinding" name="EchoServicePort">
+      <soap:address location="http://localhost:8080/echo_service/EchoService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
